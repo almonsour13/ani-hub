@@ -14,17 +14,16 @@ const { loading, error, data } = useQuery(TOP_ANIME_QUERY);
         <div key={anime.id} className="carousel-item w-full relative">
           <div
             style={{ backgroundImage: `url(${anime.bannerImage})` }}
-            className="w-full h-56 bg-cover bg-center bg-no-repeat relative p-2 animate-bg-slide"
-          >
-            <div className="absolute z-10 bottom-0 left-0 p-3 py-4 w-full flex flex-col gap-1">
-              <h1 className="text-2xl font-bold">{anime.title.english || 'N/A'}</h1>
+            className="w-full lg:h-96 md:h-72 sm:h-48 h-56 bg-cover bg-center bg-no-repeat relative p-2 animate-bg-slide">
+            <div className="absolute z-10 bottom-0 left-0 p-3 py-4 w-full flex flex-col gap-2">
+              <h1 className="lg:text-4xl md:2xl text-sm font-bold text-white">{anime.title.english || 'N/A'}</h1>
               <div className="line-clamp-3">
-                <p className="leading-none text-sm md:text-base lg:text-lg xl:text-lg 2xl:text-2xl">
+                <p className="leading-none text-sm md:text-base lg:text-md xl:text-lg 2xl:text-2xl text-white">
                   {anime.description || 'No description available'}
                 </p>
               </div>
               <div className="flex flex-row"> 
-              <button className="btn btn-sm p-1 px-3 rounded btn-outline">Watch Now</button>
+                <button className="btn lg:btn-md btn-sm w-40 p-1 px-3 rounded btn-outline">Watch Now</button>
               </div>
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>

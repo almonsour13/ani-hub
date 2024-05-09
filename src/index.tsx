@@ -10,7 +10,7 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
     <App />
-  </ApolloProvider>,
+  </ApolloProvider> 
   </React.StrictMode>
 );
 
