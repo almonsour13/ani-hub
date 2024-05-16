@@ -5,7 +5,7 @@ import TrendingManga from '../sections/trendingManga'
 
 const Home: React.FC = () => {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-7">
       <TopAnime/>
       <TrendingAnime/>
       <TrendingManga/>
