@@ -87,7 +87,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
             </Link>
           ))} 
           </div>
-        <div className="absolute z-10 lg:w-48 md:w-44 sm:w-40 w-36 h-full  right-0 top-0  bg-gradient-to-l from-base-100 via-transparent to-transparent"></div>
+        <div className="absolute z-10 lg:w-48 md:w-44 sm:w-40 w-20 h-full  right-0 top-0  bg-gradient-to-l from-base-100 via-transparent to-transparent"></div>
       </div>
       {data.Page.anime.length ? (
         <div className="lg:flex md:flex hidden gap-2 lg:ml-0 ml-3">
