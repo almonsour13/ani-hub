@@ -14,8 +14,7 @@ const isInViewport = (id: string) => {
   );
 };
 const Header: React.FC = () => {
-  const [scrollDir, setScrollDir] = useState("");
-  const [isInView, setIsInView] = useState(false);
+  const [isInView, setIsInView] = useState(true);
   const targetId = "top";
   useEffect(() => {
     let lastScrollY = window.scrollY;
