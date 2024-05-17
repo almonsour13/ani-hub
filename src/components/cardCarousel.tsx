@@ -37,7 +37,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
   };
 
   if (loading) return <CardCarSkeleton />;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <CardCarSkeleton />;
 
   return (
     <>
@@ -45,7 +45,8 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
         <h1 className="lg:text-2xl md:text-lg text-md font-bold">
           {header_title}
         </h1>
-        <a className="text-md font-bold">❯</a>
+        {/* ❯ */}
+        <a href="#"className="text-md font-bold">See All</a>
       </div>
       <div className="w-full relative  mt-2">
         <div
@@ -64,7 +65,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
                     title={anime.title.english || anime.title.native}
                   />
                   <div className="absolute left-0 rounded-bl bottom-0 w-auto z-10 p-1">
-                  <p className="font-bold text-xs drop-shadow-xl">
+                  <p className="font-bold text-xs drop-shadow-xl uppercase ">
                     {anime.format === "MANGA"
                       ? anime.countryOfOrigin === "JP"
                         ? "Manga"
@@ -74,7 +75,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
                       : anime.format}
                   </p>
                   </div>
-                  <div className="absolute z-1 h-full inset-0 bg-gradient-to-t from-base-100 via-transparent to-transparent opacity-50"></div>
+                  <div className="absolute bottom-0 z-1 h-3/6 w-full bg-gradient-to-t from-base-100 via-transparent to-transparent opacity-50"></div>
                 </div>
                 <div className=" p-0 bg-transparent">
                   <div className="line-clamp-2">
