@@ -107,7 +107,7 @@ const TopAnime: React.FC = () => {
               </div>
               {/*     <div className="absolute z-1 h-full inset-0 bg-gradient-to-r from-base-100 via-transparent to-transparent"></div>*/}
               <div className="absolute z-1 h-full inset-0 bg-gradient-to-t from-base-100 via-transparent to-transparent"></div>
-              <div className="absolute z-1 h-full w-full bg-base-100 top-0 left-0 opacity-60"></div>
+              <div className="absolute z-1 h-full w-full bg-base-100 top-0 left-0 opacity-40"></div>
             </div>
           </div>
         ))}

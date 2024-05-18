@@ -32,7 +32,7 @@ const Header: React.FC = () => {
 
   return (
     <div
-      className={`fixed top-0 w-full h-auto z-30 
+      className={`fixed top-0 w-full h-auto z-30 transition ease-in-out duration-300
       ${!isInView ? "bg-opacity-80 backdrop-blur-sm backdrop-brightness-150 bg-base-100" : "bg-gradient-to-b from-base-100 via-transparent to-transparent"}
       `}
     >
@@ -45,7 +45,7 @@ const Header: React.FC = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>{isInView ? "yes" : "no  "}</a>
+              
             </li>
           </ul>
         </div>

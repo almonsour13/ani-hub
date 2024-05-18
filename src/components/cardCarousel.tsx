@@ -14,13 +14,16 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const [maxSlide, setMaxSlide] = useState(0);
 
   useEffect(() => {
-    if (!loading && !error && data && containerRef.current && cardRef.current) {
-      const width = cardRef.current.clientWidth;
+    if (!loading && !error && data && containerRef.current) {
       const container = containerRef.current;
-      container.scrollLeft = currentSlide * (width + 12);
-      console.log(data)
+      const containerWidth = container.clientWidth;
+      const scrollWidth = container.scrollWidth;
+      const maxSlides = Math.ceil(scrollWidth / containerWidth) - 1;
+      setMaxSlide(maxSlides);
+      container.scrollLeft = currentSlide * containerWidth;
     }
   }, [currentSlide, loading, error, data]);
 
@@ -31,7 +34,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
   };
 
   const handleSwipeRight = () => {
-    if (currentSlide < data.Page.anime.length - 1) {
+    if (currentSlide < maxSlide) {
       setCurrentSlide(currentSlide + 1);
     }
   };
@@ -46,11 +49,13 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
           {header_title}
         </h1>
         {/* ❯ */}
-        <a href="#"className="text-md font-bold">See All</a>
+        <a href="#" className="text-md font-bold">
+          See All
+        </a>
       </div>
       <div className="w-full relative  mt-2">
         <div
-          className="carousel w-full h-auto gap-3 lg:scroll-px-0 scroll-px-3 lg:px-0 px-3"
+          className="carousel lg:overflow-hidden w-full h-auto gap-3 lg:scroll-px-0 scroll-px-3 lg:px-0 px-3"
           ref={containerRef}
         >
           {data.Page.anime.map((anime: any) => (
@@ -59,13 +64,16 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
               key={anime.idMal}
               className="carousel-item lg:w-44 md:w-40 sm:w-36 w-32 h-auto flex flex-col gap-2"
             >
-                <div ref={cardRef} className="w-full lg:h-64 md:h-60 sm:h-56 h-48 rounded-md bg-accent flex items-center justify-center relative">
-                  <ImageChecker
-                    imageUrl={anime.coverImage.large.replace('medium','large')}
-                    title={anime.title.english || anime.title.native}
-                  />
-                  <div className="absolute left-0 rounded-bl bottom-0 w-auto z-10 p-1">
-                  <p className="font-bold text-xs drop-shadow-xl uppercase ">
+              <div
+                ref={cardRef}
+                className="w-full lg:h-64 md:h-60 sm:h-56 h-48 rounded-md bg-accent flex items-center justify-center relative"
+              >
+                <ImageChecker
+                  imageUrl={anime.coverImage.large.replace("medium", "large")}
+                  title={anime.title.english || anime.title.native}
+                />
+                <div className="absolute left-0 rounded-bl bottom-0 w-auto z-10 p-1 w-full flex gap-2">
+                  <p className=" text-xs drop-shadow-xl uppercase ">
                     {anime.format === "MANGA"
                       ? anime.countryOfOrigin === "JP"
                         ? "Manga"
@@ -74,32 +82,34 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
                           : "Manhua"
                       : anime.format}
                   </p>
-                  </div>
-                  <div className="absolute bottom-0 z-1 h-3/6 w-full bg-gradient-to-t from-base-100 via-transparent to-transparent opacity-50"></div>
+                  <p className=" text-xs drop-shadow-xl uppercase ">
+                    {anime.startDate.year}
+                  </p>
                 </div>
-                <div className=" p-0 bg-transparent">
+                <div className="absolute bottom-0 z-1 h-3/6 w-full bg-gradient-to-t from-base-100 via-transparent to-transparent opacity-50"></div>
+              </div>
+              <div className=" p-0 bg-transparent">
                   <div className="line-clamp-2">
                     <p className="xl:text-base lg:text-sm md:text-sm text-xs font-bold shadow-black">
                       {anime.title.english || anime.title.native}
                     </p>
                   </div>
                 </div>
-        
             </Link>
-          ))} 
-          </div>
-        <div className="absolute z-10 lg:w-48 md:w-44 sm:w-40 w-20 h-full  right-0 top-0  bg-gradient-to-l from-base-100 via-transparent to-transparent"></div>
+          ))}
+        </div>
+        <div className={`absolute z-10 lg:w-48 md:w-44 sm:w-40 w-20 h-full top-0 opacity-90  bg-gradient-to-${currentSlide !== maxSlide?"l right-0":"r left-0"} transition from-base-100 via-transparent to-transparent`}></div>
       </div>
       {data.Page.anime.length ? (
         <div className="lg:flex md:flex hidden gap-2 lg:ml-0 ml-3">
           <button
-            className={`btn btn-primary btn-sm p-2 px-4 rounded ${currentSlide == 0 ? "btn-disabled" : ""}`}
+            className={`btn btn-primary btn-sm p-2 px-4 rounded ${currentSlide !== 0 ? "" : "btn-disabled"}`}
             onClick={handleSwipeLeft}
           >
             ❮
           </button>
           <button
-            className={`btn btn-primary btn-sm p-2 px-4 rounded ${currentSlide === data.Page.anime.length - 2 ? "btn-disabled" : ""}`}
+            className={`btn btn-primary btn-sm p-2 px-4 rounded ${currentSlide !== maxSlide ? "" : "btn-disabled"}`}
             onClick={handleSwipeRight}
           >
             ❯
@@ -114,7 +124,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
 {
   /*<div className="w-full lg:h-80 md:h-64 sm:h-60 xs:h-44 h-40 rounded-md bg-primary">{response}</div>*/
 }
-const ImageChecker: React.FC<{ imageUrl:string; title: string }> = ({
+const ImageChecker: React.FC<{ imageUrl: string; title: string }> = ({
   imageUrl,
   title,
 }) => {
@@ -127,10 +137,10 @@ const ImageChecker: React.FC<{ imageUrl:string; title: string }> = ({
     img.onerror = () => {
       setImageExists(false);
     };
- 
-    img.src = imageUrl.replace('large','medium');
+
+    img.src = imageUrl.replace("large", "medium");
   };
-checkImageExists()
+  checkImageExists();
   return (
     <>
       {imageExists ? (
