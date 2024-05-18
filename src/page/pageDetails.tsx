@@ -24,7 +24,7 @@ const PageDetails: React.FC = () => {
   return (
     <div className="w-full h-auto">
       <div
-        className="w-full lg:h-96 md:h-88 sm:h-80 h-64 bg-cover bg-center bg-no-repeat relative animate-bg-slide"
+        className="w-full lg:h-96 md:h-88 sm:h-80 h-80 bg-cover bg-center bg-no-repeat relative animate-bg-slide"
         style={{
           backgroundImage: `url(${data.Media.bannerImage || data.Media.coverImage.large})`,
         }}
@@ -114,6 +114,11 @@ const PageDetails: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="lg:w-10/12 w-full mx-auto lg:px-0 p-3 flex flex-col gap-4">
+          <p className="font-bold text-lg ">
+            Episodes:
+          </p>
       </div>
     </div>
   );
