@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { SERIES_PAGE_QUERY } from "../graphQl/queries";
+import { SERIES_PAGE_QUERY } from "../../graphQl/queries";
 import { useParams } from 'react-router-dom';
-
+import EpisodesList from "./episodeList";
 //156822
 const PageDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,9 +29,14 @@ const PageDetails: React.FC = () => {
           backgroundImage: `url(${data.Media.bannerImage || data.Media.coverImage.large})`,
         }}
       >
+        <div className="absolute w-full z-10 top-0 ">
+          <div className="lg:w-10/12 w-full mx-auto lg:px-0 p-3">
+              <a href="/">back</a>
+          </div>
+        </div>
         <div className="absolute w-full z-10 bottom-0 ">
           <div className="lg:w-10/12 w-full mx-auto lg:px-0 p-3 py-4 flex gap-3">
-            <div className="lg:w-52 md:w-48 sm:w-44 w-44 lg:h-64 md:h-60 sm:h-56 h-48 rounded-md bg-secondary drop-shadow-md">
+            <div className="lg:w-52 md:w-48 sm:w-44 w-44 lg:h-64 md:h-60 sm:h-56 h-44 rounded-md bg-secondary drop-shadow-md">
               <img
                 className="h-full w-full rounded object-cover"
                 src={data.Media.coverImage.large.replace("medium", "large")}
@@ -75,7 +80,6 @@ const PageDetails: React.FC = () => {
       {
         //details
       }
-      <div className="w-full h-auto">
         <div className="lg:w-10/12 w-full mx-auto lg:px-0 p-3 flex flex-col gap-4">
           <div className="flex flex-col gap-3">
             {/* <h1 className="leading-none lg:text-4xl md:text-2xl text-2xl text-wrap font-bold  drop-shadow-md">
@@ -98,7 +102,7 @@ const PageDetails: React.FC = () => {
           </div>
           <div className="flex flex-col transition-all">
             <p className="font-bold text-lg">Description:</p>
-            <div className={`w-full ${expandDesc?"h-28":"h-auto"} transition-all rounded overflow-hidden relative`} >
+            <div className={`w-full ${expandDesc?"h-28":"h-auto"} transition-all rounded overflow-hidden relative pb-7`} onClick={expand}>
                 {data.Media.description?
                   <p dangerouslySetInnerHTML={{ __html: data.Media.description }} />
                   :
@@ -106,19 +110,22 @@ const PageDetails: React.FC = () => {
                 }         
                <div className={`absolute bottom-0 left-0 z-10 ${expandDesc?"from-base-100":"from-transparent"} h-32 w-full bg-gradient-to-t from-base-100 via-transparent to-transparent`}>
                   <div className="relative w-full h-full flex justify-center">
-                    <button className={`absolute bottom-0 btn btn-sm btn-circle btn-outline ${expandDesc?"":"rotate-180"} transition-all`} onClick={expand}>
+                    <a className={`absolute bottom-0 btn btn-sm btn-circle btn-outline ${expandDesc?"":"rotate-180"} transition-all`} onClick={expand}>
                       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
-                    </button>
+                    </a>
                   </div>
                </div>
             </div>
           </div>
         </div>
-      </div>
+      {
+        //episodes
+      }
       <div className="lg:w-10/12 w-full mx-auto lg:px-0 p-3 flex flex-col gap-4">
           <p className="font-bold text-lg ">
             Episodes:
           </p>
+          <EpisodesList/>
       </div>
     </div>
   );

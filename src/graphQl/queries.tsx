@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 const TOP_ANIME_QUERY = gql`
   {
     Page {
-      anime: media(type: ANIME, sort: POPULARITY_DESC) {
+      anime: media(type: MANGA, sort: POPULARITY_DESC) {
         id
         title {
           romaji
