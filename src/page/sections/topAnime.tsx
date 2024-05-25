@@ -11,8 +11,6 @@ const TopAnime: React.FC = () => {
   const [autoSwipeInterval, setAutoSwipeInterval] = useState<NodeJS.Timeout | null | undefined>(null);
 
 
-
-
   let startX: number;
   let endX: number;
 
