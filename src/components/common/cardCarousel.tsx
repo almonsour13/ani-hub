@@ -59,8 +59,8 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
           ref={containerRef}
         >
           {data.Page.anime.map((anime: any) => (
-            <Link
-              to={`/${anime.type.toLowerCase()}/${anime.id}`}
+            <a
+              href={`/${anime.type.toLowerCase()}/${anime.id}`}
               key={anime.idMal}
               className="carousel-item lg:w-44 md:w-40 sm:w-36 w-32 h-auto flex flex-col gap-2"
             >
@@ -95,7 +95,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
                     </p>
                   </div>
                 </div>
-            </Link>
+            </a>
           ))}
         </div>
         <div className={`absolute z-10 lg:w-48 md:w-44 sm:w-40 w-20 h-full top-0 opacity-90  bg-gradient-to-${currentSlide !== maxSlide?"l right-0":"r left-0"} transition from-base-100 via-transparent to-transparent`}></div>

@@ -52,13 +52,6 @@ const TopAnime: React.FC = () => {
       setCurrentSlide(0)
     }
   };
-  const resetAutoSwipe = () => {
-    if(autoSwipeInterval){
-      clearInterval(autoSwipeInterval);
-    }
-    const interval = setInterval(handleAutoSwipe, 5000);
-    setAutoSwipeInterval(interval);
-  };
   useEffect(() => { 
     if (!loading && !error && data && containerRef.current) {
 
@@ -68,18 +61,17 @@ const TopAnime: React.FC = () => {
       const maxSlides = Math.ceil(scrollWidth / containerWidth) - 2;
       setMaxSlide(maxSlides);
       
-    resetAutoSwipe();
       container.scrollLeft = currentSlide * containerWidth;
       const slider = container;
       slider.addEventListener("touchstart", handleTouchStart);
       slider.addEventListener("touchmove", handleTouchMove);
       slider.addEventListener("touchend", handleTouchEnd);
-
+      const interval = setInterval(handleAutoSwipe, 10000);
       return () => {
         slider.removeEventListener("touchstart", handleTouchStart);
         slider.removeEventListener("touchmove", handleTouchMove);
         slider.removeEventListener("touchend", handleTouchEnd);
-        clearInterval(autoSwipeInterval as number | undefined);
+        clearInterval(interval);
       };
     }
   }, [currentSlide, loading, error, data]);
@@ -134,7 +126,7 @@ const PaginationBalls: React.FC<PaginationBallsProps> = ({
 }) => {
 
   return (
-    <div className="lg:w-4/12 w-full flex gap-1 lg:flex ">
+    <div className="lg:w-5/12 w-full flex gap-1 ">
       {[...Array(length)].map((_, index) => (
         <button
           key={index}
@@ -231,7 +223,7 @@ const Slide: React.FC<Slide> = ({ data }) => {
             {/*     <div className="absolute z-1 h-full inset-0 bg-gradient-to-r from-base-100 via-transparent to-transparent"></div>*/}
             <div className="absolute z-1 h-full w-full bg-gradient-to-t from-base-100 via-transparent to-transparent"></div>
             <div className="absolute z-1 h-full w-full bg-gradient-to-r from-base-100 via-transparent to-transparent"></div>
-            <div className="absolute z-1 h-full w-full bg-base-100 top-0 left-0 opacity-60"></div>
+            <div className="absolute z-1 h-full w-full bg-base-100 top-0 left-0 opacity-70"></div>
           </div>
         </div>
       ))}
