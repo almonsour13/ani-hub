@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import CardCarSkeleton from "./skeletons/cardCarSkeleton";
+import CardCarSkeleton from "../skeletons/cardCarSkeleton";
 
 interface CardCarouselProps {
   header_title: any;
