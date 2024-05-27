@@ -81,7 +81,7 @@ const TopAnime: React.FC = () => {
 
   return (
     <div className="relative" id="top">
-      <div className="carousel w-full h-full relative overflow-x-scroll" ref={containerRef}>
+      <div className="carousel w-full h-full relative overflow-hidden" ref={containerRef}>
           <Slide data={data.Page.anime} />
       </div>
       <div className="absolute z-30 lg:bottom-20 bottom-0 w-full lg:block">
