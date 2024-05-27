@@ -56,6 +56,10 @@ const TopAnime: React.FC = () => {
       setCurrentSlide(0)
     }
   };
+  const resetAutoSwipe = () => {
+    const interval = setInterval(handleAutoSwipe, 1000); 
+    setAutoSwipeInterval(interval);
+  };
   useEffect(() => { 
     if (!loading && !error && data && containerRef.current) {
 
@@ -64,18 +68,18 @@ const TopAnime: React.FC = () => {
       const scrollWidth = container.scrollWidth;
       const maxSlides = Math.ceil(scrollWidth / containerWidth) - 2;
       setMaxSlide(maxSlides);
+      resetAutoSwipe();
       
       container.scrollLeft = currentSlide * containerWidth;
       const slider = container;
       slider.addEventListener("touchstart", handleTouchStart);
       slider.addEventListener("touchmove", handleTouchMove);
       slider.addEventListener("touchend", handleTouchEnd);
-    //  const interval = setInterval(handleAutoSwipe, 10000);
       return () => {
         slider.removeEventListener("touchstart", handleTouchStart);
         slider.removeEventListener("touchmove", handleTouchMove);
-        slider.removeEventListener("touchend", handleTouchEnd);
-    //    clearInterval(interval);
+        slider.removeEventListener("touchend", handleTouchEnd);   
+      clearInterval(autoSwipeInterval as number | undefined);
       };
     }
   }, [currentSlide, loading, error, data]);
@@ -135,7 +139,7 @@ const PaginationBalls: React.FC<PaginationBallsProps> = ({
       {[...Array(length)].map((_, index) => (
         <button
           key={index}
-          className={`lg:h-px h-0.5 w-full ${
+          className={`h-0.5 w-full ${
             index <= currentSlide ? "bg-primary" : "bg-base-100"
           }`}
           onClick={() => setCurrentSlide(index)}
@@ -221,7 +225,8 @@ const Slide: React.FC<Slide> = ({ data }) => {
                       </p>
                     </a>
                     <button className="btn lg:btn-sm btn-sm rounded-full btn-primary">
-                    <svg className="fill-current lg:h-5 lg:w-85 h-5 w-5"  xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z"/></svg> 
+                      <svg 
+                        className="fill-current lg:h-5 lg:w-85 h-5 w-5" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"/></svg>
                     </button>
                   </div>
                 </div>
