@@ -104,7 +104,7 @@ const PageDetails: React.FC = () => {
             <p className="font-bold text-lg">Description:</p>
             <div className={`w-full ${expandDesc?"h-28":"h-auto"} transition-all rounded overflow-hidden relative pb-7`} onClick={expand}>
                 {data.Media.description?
-                  <p dangerouslySetInnerHTML={{ __html: data.Media.description }} />
+                  <p className="" dangerouslySetInnerHTML={{ __html: data.Media.description }} />
                   :
                   <p>No Description</p>
                 }         

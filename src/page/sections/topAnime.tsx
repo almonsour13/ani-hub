@@ -36,6 +36,8 @@ const TopAnime: React.FC = () => {
     if (currentSlide > 0) {
       setCurrentSlide(currentSlide - 1);
       clearInterval(autoSwipeInterval as number | undefined);
+    }else{
+      setCurrentSlide(0)
     }
   };
 
@@ -43,6 +45,8 @@ const TopAnime: React.FC = () => {
     if (currentSlide < maxSlide) {
       setCurrentSlide(currentSlide + 1);
       clearInterval(autoSwipeInterval as number | undefined);
+    }else{
+      setCurrentSlide(0)
     }
   };
   const handleAutoSwipe = () => {
@@ -81,11 +85,11 @@ const TopAnime: React.FC = () => {
 
   return (
     <div className="relative" id="top">
-      <div className="carousel w-full h-full relative overflow-hidden" ref={containerRef}>
+      <div className="carousel w-full h-full relative" ref={containerRef}>
           <Slide data={data.Page.anime} />
       </div>
-      <div className="absolute z-30 lg:bottom-20 bottom-0 w-full lg:block">
-        <div className="lg:w-9/12 w-full lg:px-0 p-3 flex flex-col gap-3 mx-auto">
+      <div className="absolute z-30 lg:bottom-28 bottom-0 w-full">
+        <div className="lg:w-9/12 w-full lg:px-0 px-4 flex flex-col items-end gap-4 mx-auto relative">
           {/* {`${currentSlide+1}/${maxSlide+1}`} */}
           <div className="flex gap-2 lg:flex hidden">
             <button
@@ -95,7 +99,7 @@ const TopAnime: React.FC = () => {
               ❮
             </button>
             <button
-              className={`btn btn-primary btn-sm rounded ${currentSlide !== maxSlide ? "" : "btn-disabled"}`}
+              className={`btn btn-primary btn-sm rounded ${currentSlide !== maxSlide ? "" : ""}`}
               onClick={handleSwipeRight}
             >
               ❯
@@ -127,11 +131,11 @@ const PaginationBalls: React.FC<PaginationBallsProps> = ({
 }) => {
 
   return (
-    <div className="w-full flex">
+    <div className="w-full flex gap-1">
       {[...Array(length)].map((_, index) => (
         <button
           key={index}
-          className={`h-px w-full ${
+          className={`lg:h-px h-0.5 w-full ${
             index <= currentSlide ? "bg-primary" : "bg-base-100"
           }`}
           onClick={() => setCurrentSlide(index)}
@@ -153,40 +157,39 @@ const Slide: React.FC<Slide> = ({ data }) => {
             style={{
               backgroundImage: `url(${anime.bannerImage})`,
             }}
-            className="w-full lg:h-screen md:h-screen h-96 bg-cover bg-center bg-no-repeat relative animate-bg-slide"
+            className="w-full lg:h-screen md:h-screen h-80 bg-cover bg-center bg-no-repeat relative animate-bg-slide"
           >
-            <div className="absolute z-10 bottom-0 w-full h-full flex content-center items-center">
+            <div className="absolute z-10 lg:bottom-28 bottom-0 w-full">
               <div className="w-full">
                 <div className="lg:w-9/12 w-full lg:px-0 p-3 flex flex-col gap-2 mx-auto">
-                  <h1 className="text-primary font-bold  lg:text-3xl md:text-2xl text-xl">
-                    #{index+1}
+                  <h1 className="text-primary font-bold lg:text-2xl md:text-2xl text-xl">
+                    #{index+1} Top
                   </h1>
                   <h1 className="leading-none lg:text-5xl text-3xl font-bold text-wrap drop-shadow-md">
                     {anime.title.english || "N/A"}
                   </h1>
-                  {/* <div className="flex gap-2">
-                    <p className="">{anime.format}</p>
-                    <p className="">
-                      {anime.startDate.year} - {anime.endDate.year || "?"}
-                    </p>
-                  </div> */}
-                  <div className="lg:line-clamp-2 md:line-clamp-2 line-clamp-3 lg:w-10/12">
-                    <p
-                      dangerouslySetInnerHTML={{ __html: anime.description }}
-                    />
+                  <div className="flex flex-wrap gap-2">
+                    <p>{anime.startDate.year}</p>
+                    <p>{anime.averageScore}</p>
+                    <p>{anime.status}</p>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {anime.genres.slice(0,3).map((genre: any, index: number) => (
                       <a
                         href={`/search/genre`}
-                        className="btn btn-xs btn-outline rounded-2xl btn-primary rounded"
+                        className="btn btn-xs btn-primary rounded-2xl"
                       >
                         {genre}
                       </a>
                     ))}
                   </div>
-                  <div className="flex flex-row align-center gap-0 mt-1">
-                    <button className="btn lg:btn-sm btn-sm w-auto px-4 rounded-2xl btn-primary flex flex-row align-center justify-center mr-2">
+                  <div className="lg:line-clamp-2 md:line-clamp-2 line-clamp-3 lg:w-10/12 hidden">
+                    <p
+                      dangerouslySetInnerHTML={{ __html: anime.description }}
+                    />
+                  </div>
+                  <div className="flex flex-row align-center gap-2">
+                    <button className="btn lg:btn-sm btn-sm w-auto rounded-2xl btn-primary">
                       <svg
                         className="fill-current lg:h-5 lg:w-85 h-5 w-5"
                         xmlns="http://www.w3.org/2000/svg"
@@ -195,13 +198,13 @@ const Slide: React.FC<Slide> = ({ data }) => {
                       >
                         <path d="m380-300 280-180-280-180v360ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
                       </svg>
-                      <p className="lg:text-md md:text-lg md:text-sm text-sm">
+                      <p className="">
                         {anime.type === "ANIME" ? "Watch Now" : "Read Now"}
                       </p>
                     </button>
                     <a
                       href={`/${anime.type.toLowerCase()}/${anime.id}`}
-                      className="btn lg:btn-sm btn-sm btn-outline btn-primary w-auto px-4 rounded-2xl flex flex-row align-center justify-center"
+                      className="btn lg:btn-sm btn-sm btn-outline btn-primary rounded-2xl"
                     >
                       <svg
                         className="fill-current lg:h-5 lg:w-85 h-5 w-5"
@@ -213,10 +216,20 @@ const Slide: React.FC<Slide> = ({ data }) => {
                       >
                         <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
                       </svg>
-                      <p className="lg:text-md md:text-lg md:text-sm text-sm">
+                      <p className="">
                         Details
                       </p>
                     </a>
+                    <button className="btn lg:btn-sm btn-sm rounded-full btn-primary">
+                      <svg
+                        className="fill-current lg:h-5 lg:w-85 h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 -960 960 960"
+                        fill="#e8eaed"
+                      >
+                        <path d="m380-300 280-180-280-180v360ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </div>
