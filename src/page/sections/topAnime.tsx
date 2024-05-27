@@ -66,12 +66,12 @@ const TopAnime: React.FC = () => {
       slider.addEventListener("touchstart", handleTouchStart);
       slider.addEventListener("touchmove", handleTouchMove);
       slider.addEventListener("touchend", handleTouchEnd);
-      const interval = setInterval(handleAutoSwipe, 10000);
+    //  const interval = setInterval(handleAutoSwipe, 10000);
       return () => {
         slider.removeEventListener("touchstart", handleTouchStart);
         slider.removeEventListener("touchmove", handleTouchMove);
         slider.removeEventListener("touchend", handleTouchEnd);
-        clearInterval(interval);
+    //    clearInterval(interval);
       };
     }
   }, [currentSlide, loading, error, data]);
@@ -84,8 +84,9 @@ const TopAnime: React.FC = () => {
       <div className="carousel w-full h-full relative overflow-x-scroll" ref={containerRef}>
           <Slide data={data.Page.anime} />
       </div>
-      <div className="absolute z-30 lg:bottom-20 bottom-0 w-full lg:block hidden">
+      <div className="absolute z-30 lg:bottom-20 bottom-0 w-full lg:block">
         <div className="lg:w-9/12 w-full lg:px-0 p-3 flex flex-col gap-3 mx-auto">
+          {/* {`${currentSlide+1}/${maxSlide+1}`} */}
           <div className="flex gap-2 lg:flex hidden">
             <button
               className={`btn btn-primary btn-sm rounded ${currentSlide !== 0 ? "" : "btn-disabled"}`}
@@ -126,12 +127,12 @@ const PaginationBalls: React.FC<PaginationBallsProps> = ({
 }) => {
 
   return (
-    <div className="lg:w-5/12 w-full flex gap-1 ">
+    <div className="w-full flex">
       {[...Array(length)].map((_, index) => (
         <button
           key={index}
-          className={`lg:h-2 h-1 w-full rounded border border-primary ${
-            index <= currentSlide ? "bg-primary" : "btn-outline"
+          className={`h-px w-full ${
+            index <= currentSlide ? "bg-primary" : "bg-base-100"
           }`}
           onClick={() => setCurrentSlide(index)}
         ></button>
@@ -169,7 +170,7 @@ const Slide: React.FC<Slide> = ({ data }) => {
                       {anime.startDate.year} - {anime.endDate.year || "?"}
                     </p>
                   </div> */}
-                  <div className="line-clamp-2 lg:w-8/12">
+                  <div className="lg:line-clamp-2 md:line-clamp-2 line-clamp-3 lg:w-10/12">
                     <p
                       dangerouslySetInnerHTML={{ __html: anime.description }}
                     />
@@ -177,7 +178,7 @@ const Slide: React.FC<Slide> = ({ data }) => {
                   <div className="flex flex-wrap gap-2">
                     {anime.genres.slice(0,3).map((genre: any, index: number) => (
                       <a
-                        href="#"
+                        href={`/search/genre`}
                         className="btn btn-xs btn-outline rounded-2xl btn-primary rounded"
                       >
                         {genre}

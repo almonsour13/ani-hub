@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const TOP_ANIME_QUERY = gql`
   {
-    Page(perPage:20) {
+    Page(perPage:10) {
       anime: media(type: MANGA, sort: POPULARITY_DESC) {
         id
         title {
