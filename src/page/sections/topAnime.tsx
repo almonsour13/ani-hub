@@ -89,7 +89,7 @@ const TopAnime: React.FC = () => {
           <Slide data={data.Page.anime} />
       </div>
       <div className="absolute z-30 lg:bottom-28 bottom-0 w-full">
-        <div className="lg:w-9/12 w-full lg:px-0 px-4 flex flex-col items-end gap-4 mx-auto relative">
+        <div className="lg:w-9/12 w-full lg:px-0 px-4 flex flex-col items-start gap-4 mx-auto relative">
           {/* {`${currentSlide+1}/${maxSlide+1}`} */}
           <div className="flex gap-2 lg:flex hidden">
             <button
@@ -159,16 +159,16 @@ const Slide: React.FC<Slide> = ({ data }) => {
             }}
             className="w-full lg:h-screen md:h-screen h-80 bg-cover bg-center bg-no-repeat relative animate-bg-slide"
           >
-            <div className="absolute z-10 lg:bottom-28 bottom-0 w-full">
+            <div className="absolute z-10 lg:bottom-0 bottom-0 w-full lg:h-full flex justify-center items-center">
               <div className="w-full">
                 <div className="lg:w-9/12 w-full lg:px-0 p-3 flex flex-col gap-2 mx-auto">
-                  <h1 className="text-primary font-bold lg:text-2xl md:text-2xl text-xl">
+                  <h1 className="text-primary font-bold lg:text-2xl md:text-2xl text-sm">
                     #{index+1} Top
                   </h1>
-                  <h1 className="leading-none lg:text-5xl text-3xl font-bold text-wrap drop-shadow-md">
+                  <h1 className="leading-none lg:text-5xl text-xl font-bold text-wrap drop-shadow-md">
                     {anime.title.english || "N/A"}
                   </h1>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 lg:flex hidden">
                     <p>{anime.startDate.year}</p>
                     <p>{anime.averageScore}</p>
                     <p>{anime.status}</p>
@@ -177,7 +177,7 @@ const Slide: React.FC<Slide> = ({ data }) => {
                     {anime.genres.slice(0,3).map((genre: any, index: number) => (
                       <a
                         href={`/search/genre`}
-                        className="btn btn-xs btn-primary rounded-2xl"
+                        className="btn btn-xs btn-primary btn-outline rounded-2xl"
                       >
                         {genre}
                       </a>
@@ -204,7 +204,7 @@ const Slide: React.FC<Slide> = ({ data }) => {
                     </button>
                     <a
                       href={`/${anime.type.toLowerCase()}/${anime.id}`}
-                      className="btn lg:btn-sm btn-sm btn-outline btn-primary rounded-2xl"
+                      className="btn lg:btn-sm btn-sm btn-primary rounded-2xl"
                     >
                       <svg
                         className="fill-current lg:h-5 lg:w-85 h-5 w-5"
@@ -221,14 +221,7 @@ const Slide: React.FC<Slide> = ({ data }) => {
                       </p>
                     </a>
                     <button className="btn lg:btn-sm btn-sm rounded-full btn-primary">
-                      <svg
-                        className="fill-current lg:h-5 lg:w-85 h-5 w-5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 -960 960 960"
-                        fill="#e8eaed"
-                      >
-                        <path d="m380-300 280-180-280-180v360ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
-                      </svg>
+                    <svg className="fill-current lg:h-5 lg:w-85 h-5 w-5"  xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z"/></svg> 
                     </button>
                   </div>
                 </div>
