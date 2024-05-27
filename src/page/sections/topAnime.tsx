@@ -84,7 +84,7 @@ const TopAnime: React.FC = () => {
       <div className="carousel w-full h-full relative overflow-x-scroll" ref={containerRef}>
           <Slide data={data.Page.anime} />
       </div>
-      <div className="absolute z-30 lg:bottom-20 bottom-0 w-full">
+      <div className="absolute z-30 lg:bottom-20 bottom-0 w-full lg:block hidden">
         <div className="lg:w-9/12 w-full lg:px-0 p-3 flex flex-col gap-3 mx-auto">
           <div className="flex gap-2 lg:flex hidden">
             <button
@@ -163,19 +163,19 @@ const Slide: React.FC<Slide> = ({ data }) => {
                   <h1 className="leading-none lg:text-5xl text-3xl font-bold text-wrap drop-shadow-md">
                     {anime.title.english || "N/A"}
                   </h1>
-                  <div className="flex gap-2">
+                  {/* <div className="flex gap-2">
                     <p className="">{anime.format}</p>
                     <p className="">
                       {anime.startDate.year} - {anime.endDate.year || "?"}
                     </p>
-                  </div>
+                  </div> */}
                   <div className="line-clamp-2 lg:w-8/12">
                     <p
                       dangerouslySetInnerHTML={{ __html: anime.description }}
                     />
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {anime.genres.map((genre: any, index: number) => (
+                    {anime.genres.slice(0,3).map((genre: any, index: number) => (
                       <a
                         href="#"
                         className="btn btn-xs btn-outline rounded-2xl btn-primary rounded"

@@ -93,7 +93,7 @@ const PageDetails: React.FC = () => {
               {data.Media.genres.map((genre: any) => (
                 <a
                   href="#"
-                  className="btn btn-sm btn-outline btn-primary rounded leading-none text-xs md:text-base lg:text-md"
+                  className="btn btn-xs btn-outline btn-primary rounded-2xl"
                 >
                   {genre}
                 </a>
