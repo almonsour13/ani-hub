@@ -7,10 +7,10 @@ import Header from '../components/layout/header';
 const Home: React.FC = () => {
   return (
     <div className="flex flex-col gap-7 relative">
-      {/* <Header/> */}
+      <Header/>
       <TopAnime/>
       <TrendingAnime/>
-      {/* <TrendingManga/> */}
+      <TrendingManga/>
     </div>
   );
 };

@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-const isInViewport = (id: string) => {
-  const element = document.getElementById(id);
-  if (!element) return false;
-
-  const rect = element.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-};
 const Header: React.FC = () => {
   const [isInView, setIsInView] = useState(true);
-  const targetId = "top";
+  const handleScroll = () => {
+    if (window.scrollY === 0) {
+      setIsInView(true);
+    } else {
+      setIsInView(false);
+    }
+  };
   useEffect(() => {
     let lastScrollY = window.scrollY;
-    const handleScroll = () => {
-      setIsInView(isInViewport(targetId));
-    };
 
     window.addEventListener("scroll", handleScroll);
 
@@ -32,14 +22,14 @@ const Header: React.FC = () => {
 
   return (
     <div
-      className={`fixed top-0 w-full h-auto z-30 transition ease-in-out duration-300
-      ${!isInView ? "bg-opacity-80 backdrop-blur-sm backdrop-brightness-150 bg-base-100" : "bg-gradient-to-b from-base-100 via-transparent to-transparent"}
+      className={`fixed top-0 w-full h-auto z-50 transition ease-in-out duration-300 bg-gradient-to-b from-base-100 via-transparent to-transparent 
+      ${!isInView ? "bg-opacity-50 backdrop-blur-sm backdrop-brightness-100 bg-base-100" : ""}
       `}
     >
-      <div className="navbar lg:w-10/12 w-full mx-auto h-16">
+      <div className="navbar lg:w-9/12 w-full mx-auto py-2 lg:p-0 p-3 ">
         <div className="navbar-start">
-          <a href="#" className="text-xl font-bold">
-            aniHub
+          <a href="/" className="text-xl font-bold">
+            <img className="h-12 w-12" src="assets/icon/icon.png" alt="" />
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">

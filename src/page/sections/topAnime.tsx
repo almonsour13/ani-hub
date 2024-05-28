@@ -10,7 +10,6 @@ const TopAnime: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const autoSwipeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-
   let startX: number;
   let endX: number;
 
@@ -39,9 +38,8 @@ const TopAnime: React.FC = () => {
   const handleSwipeRight = () => {
     setCurrentSlide((prev) => (prev < maxSlide ? prev + 1 : 0));
   };
-  useEffect(() => { 
+  useEffect(() => {
     if (!loading && data && containerRef.current) {
-
       const container = containerRef.current;
       const containerWidth = container.clientWidth;
       const scrollWidth = container.scrollWidth;
@@ -53,18 +51,18 @@ const TopAnime: React.FC = () => {
       }
       const interval = setInterval(() => {
         setCurrentSlide((prev) => (prev < maxSlides ? prev + 1 : 0));
-      }, 3000);
+      }, 5000);
       autoSwipeIntervalRef.current = interval;
 
       container.scrollLeft = currentSlide * container.clientWidth;
-      container.addEventListener('touchstart', handleTouchStart);
-      container.addEventListener('touchmove', handleTouchMove);
-      container.addEventListener('touchend', handleTouchEnd);
+      container.addEventListener("touchstart", handleTouchStart);
+      container.addEventListener("touchmove", handleTouchMove);
+      container.addEventListener("touchend", handleTouchEnd);
 
       return () => {
-        container.removeEventListener('touchstart', handleTouchStart);
-        container.removeEventListener('touchmove', handleTouchMove);
-        container.removeEventListener('touchend', handleTouchEnd);
+        container.removeEventListener("touchstart", handleTouchStart);
+        container.removeEventListener("touchmove", handleTouchMove);
+        container.removeEventListener("touchend", handleTouchEnd);
         if (autoSwipeIntervalRef.current) {
           clearInterval(autoSwipeIntervalRef.current);
         }
@@ -72,17 +70,19 @@ const TopAnime: React.FC = () => {
     }
   }, [currentSlide, loading, data]);
 
-
   if (loading) return <SlideCarSkeleton />;
   if (error) return <p className="mt-16">Error: {error.message}</p>;
 
   return (
     <div className="relative" id="top">
-      <div className="carousel w-full h-full relative scroll-smooth overflow-hidden" ref={containerRef}>
-          <Slide data={data.Page.anime} />
+      <div
+        className="carousel w-full h-full relative scroll-smooth overflow-hidden"
+        ref={containerRef}
+      >
+        <Slide data={data.Page.anime} />
       </div>
       <div className="absolute z-30 lg:bottom-28 bottom-0 w-full">
-        <div className="lg:w-9/12 w-full lg:px-0 px-4 flex flex-col items-start gap-4 mx-auto relative">
+        <div className="lg:w-9/12 w-full lg:px-0 px-4 flex flex-col items-start gap-3 mx-auto relative">
           {/* {`${currentSlide+1}/${maxSlide+1}`} */}
           <div className="flex gap-2 lg:flex hidden">
             <button
@@ -109,8 +109,6 @@ const TopAnime: React.FC = () => {
   );
 };
 
-
-
 interface PaginationBallsProps {
   length: number;
   currentSlide: number;
@@ -120,9 +118,8 @@ interface PaginationBallsProps {
 const PaginationBalls: React.FC<PaginationBallsProps> = ({
   length,
   currentSlide,
-  setCurrentSlide
+  setCurrentSlide,
 }) => {
-
   return (
     <div className="w-full flex gap-1">
       {[...Array(length)].map((_, index) => (
@@ -155,26 +152,28 @@ const Slide: React.FC<Slide> = ({ data }) => {
             <div className="absolute z-10 lg:bottom-0 bottom-0 w-full lg:h-full flex justify-center items-center">
               <div className="w-full">
                 <div className="lg:w-9/12 w-full lg:px-0 p-3 flex flex-col gap-2 mx-auto">
-                  <h1 className="text-primary font-bold lg:text-2xl md:text-2xl text-sm">
-                    #{index+1} Top
+                  <h1 className="leading-none text-primary font-bold lg:text-2xl md:text-2xl text-sm">
+                    #{index + 1} Top
                   </h1>
-                  <h1 className="leading-none lg:text-5xl text-xl font-bold text-wrap drop-shadow-md">
+                  <h1 className="leading-none lg:text-5xl text-2xl font-bold text-wrap drop-shadow-md">
                     {anime.title.english || "N/A"}
                   </h1>
-                  <div className="flex flex-wrap gap-2 lg:flex hidden">
+                  <div className="flex flex-wrap gap-2 leading-none text-xs lg:flex hidden">
                     <p>{anime.startDate.year}</p>
                     <p>{anime.averageScore}</p>
                     <p>{anime.status}</p>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {anime.genres.slice(0,3).map((genre: any, index: number) => (
-                      <a
-                        href={`/search/genre`}
-                        className="btn btn-xs btn-primary btn-outline rounded-2xl"
-                      >
-                        {genre}
-                      </a>
-                    ))}
+                    {anime.genres
+                      .slice(0, 3)
+                      .map((genre: any, index: number) => (
+                        <a
+                          href={`/search/genre`}
+                          className="btn btn-xs btn-primary btn-outline rounded-2xl"
+                        >
+                          {genre}
+                        </a>
+                      ))}
                   </div>
                   <div className="lg:line-clamp-2 md:line-clamp-2 line-clamp-3 lg:w-10/12 hidden">
                     <p
@@ -209,13 +208,19 @@ const Slide: React.FC<Slide> = ({ data }) => {
                       >
                         <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
                       </svg>
-                      <p className="">
-                        Details
-                      </p>
+                      <p className="">Details</p>
                     </a>
                     <button className="btn lg:btn-sm btn-sm rounded-full btn-primary">
-                      <svg 
-                        className="fill-current lg:h-5 lg:w-85 h-5 w-5" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"/></svg>
+                      <svg
+                        className="fill-current lg:h-5 lg:w-85 h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24px"
+                        viewBox="0 -960 960 960"
+                        width="24px"
+                        fill="#e8eaed"
+                      >
+                        <path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z" />
+                      </svg>
                     </button>
                   </div>
                 </div>

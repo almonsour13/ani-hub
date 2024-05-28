@@ -17,13 +17,14 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
   const [maxSlide, setMaxSlide] = useState(0);
 
   useEffect(() => {
-    if (!loading && !error && data && containerRef.current) {
+    if (!loading && !error && data && containerRef.current && cardRef.current) {
       const container = containerRef.current;
-      const containerWidth = container.clientWidth;
+      const cardWidth = cardRef.current.clientWidth;
+      const containerWidth = container.clientWidth-(cardWidth/2);
       const scrollWidth = container.scrollWidth;
       const maxSlides = Math.ceil(scrollWidth / containerWidth) - 1;
       setMaxSlide(maxSlides);
-      container.scrollLeft = currentSlide * containerWidth;
+      container.scrollLeft = currentSlide * (containerWidth-48);
     }
   }, [currentSlide, loading, error, data]);
 
@@ -44,72 +45,87 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
 
   return (
     <>
-      <div className="flex justify-between lg:px-0 px-3 mt-2 ">
-        <h1 className="lg:text-2xl md:text-lg text-md font-bold">
+      <div className="flex justify-between lg:px-0 px-3 mt-2 lg:text-lg text-md font-bold uppercase">
+        <h1>
           {header_title}
         </h1>
         {/* ❯ */}
-        <a href="#" className="text-md font-bold">
+        <a href="#">
           See All
         </a>
       </div>
-      <div className="w-full relative  mt-2">
+      <div className="w-full relative">
         <div
           className="carousel lg:overflow-hidden w-full h-auto gap-3 lg:scroll-px-0 scroll-px-3 lg:px-0 px-3"
           ref={containerRef}
         >
-          {data.Page.anime.map((anime: any) => (
+          {data.Page.anime.map((anime: any, index:number) => (
             <a
               href={`/${anime.type.toLowerCase()}/${anime.id}`}
               key={anime.idMal}
-              className="carousel-item lg:w-44 md:w-40 sm:w-36 w-32 h-auto flex flex-col gap-2"
+              className="carousel-item group relative lg:w-40 md:w-40 sm:w-36 w-32 h-auto flex flex-col gap-2"
             >
               <div
                 ref={cardRef}
-                className="w-full lg:h-64 md:h-60 sm:h-56 h-48 rounded-md bg-accent flex items-center justify-center relative"
+                className="w-full lg:h-56 md:h-60 sm:h-56 h-48 rounded bg-accent flex items-center justify-center relative overflow-hidden"
               >
                 <ImageChecker
                   imageUrl={anime.coverImage.large.replace("medium", "large")}
                   title={anime.title.english || anime.title.native}
                 />
-                <div className="absolute left-0 rounded-bl bottom-0 w-auto z-10 p-1 w-full flex gap-2">
-                  <p className=" text-xs drop-shadow-xl uppercase ">
-                    {anime.format === "MANGA"
-                      ? anime.countryOfOrigin === "JP"
-                        ? "Manga"
-                        : anime.countryOfOrigin === "KR"
-                          ? "Manhwa"
-                          : "Manhua"
-                      : anime.format}
-                  </p>
-                  <p className=" text-xs drop-shadow-xl uppercase ">
-                    {anime.startDate.year}
-                  </p>
+                <div className="absolute lg:block hidden transition-all ease-in-out duration-200 bottom-0 group-hover:bg-opacity- overflow-hidden w-full group-hover:h-full h-0 bg-gradient-to-t from-base-100 via-transparent to-transparent">
+                  <div className="-w-full h-full flex items-end bg-gradient-to-t from-base-100 via-transparent to-transparent bg-opacity-60"> 
+                    <div className="flex flex-col gap-1 p-2 text-xs">
+                      <div className="w-full flex gap-1 text-primary">
+                        <p>
+                          {anime.format === "MANGA"
+                            ? anime.countryOfOrigin === "JP"
+                              ? "Mga"
+                              : anime.countryOfOrigin === "KR"
+                                ? "Mwa"
+                                : "Mua"
+                            : anime.format}
+                        </p>
+                        <p>{anime.startDate.year}</p>
+                      </div>
+                      <div className="w-full flex gap-2">
+                        {anime.genres
+                            .slice(0, 2)
+                            .map((genre: any, index: number) => (
+                              <a
+                                href={`/search/genre`}
+                                className=""
+                              >
+                                {genre}
+                              </a>
+                          ))}
+                      </div>
+                    </div>  
+                  </div>   
                 </div>
-                <div className="absolute bottom-0 z-1 h-3/6 w-full bg-gradient-to-t from-base-100 via-transparent to-transparent opacity-50"></div>
               </div>
               <div className=" p-0 bg-transparent">
-                  <div className="line-clamp-2">
-                    <p className="xl:text-base lg:text-sm md:text-sm text-xs font-bold shadow-black">
-                      {anime.title.english || anime.title.native}
-                    </p>
-                  </div>
+                <div className="w-full line-clamp-2">
+                  <p className="group-hover:text-primary lg:text-sm md:text-sm text-xs lg:font-semibold tracking-wide shadow-black">
+                    {anime.title.english || anime.title.native}
+                  </p>
                 </div>
+              </div>
             </a>
           ))}
         </div>
-        <div className={`absolute z-10 lg:w-48 md:w-44 sm:w-40 w-20 h-full top-0 opacity-90  bg-gradient-to-${currentSlide !== maxSlide?"l right-0":"r left-0"} transition from-base-100 via-transparent to-transparent`}></div>
+        <div className={`absolute z-10 lg:w-48 md:w-44 sm:w-40 w-20 h-full top-0 opacity-90 ${currentSlide != maxSlide?"bg-gradient-to-l right-0":"bg-gradient-to-r left-0"} transition from-base-100 via-transparent to-transparent`}></div>
       </div>
       {data.Page.anime.length ? (
-        <div className="lg:flex md:flex hidden gap-2 lg:ml-0 ml-3">
+        <div className="lg:flex md:flex hidden gap-2 lg:px-0 px-3">
           <button
-            className={`btn btn-primary btn-sm p-2 px-4 rounded ${currentSlide !== 0 ? "" : "btn-disabled"}`}
+            className={`btn btn-primary btn-sm rounded ${currentSlide !== 0 ? "" : "btn-disabled"}`}
             onClick={handleSwipeLeft}
           >
             ❮
           </button>
           <button
-            className={`btn btn-primary btn-sm p-2 px-4 rounded ${currentSlide !== maxSlide ? "" : "btn-disabled"}`}
+            className={`btn btn-primary btn-sm rounded ${currentSlide !== maxSlide ? "" : "btn-disabled"}`}
             onClick={handleSwipeRight}
           >
             ❯
