@@ -8,7 +8,7 @@ const TopAnime: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [maxSlide, setMaxSlide] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [autoSwipeInterval, setAutoSwipeInterval] = useState<NodeJS.Timeout | null | undefined>(null);
+  const autoSwipeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
 
   let startX: number;
@@ -33,56 +33,45 @@ const TopAnime: React.FC = () => {
   };
 
   const handleSwipeLeft = () => {
-    if (currentSlide > 0) {
-      setCurrentSlide(currentSlide - 1);
-      clearInterval(autoSwipeInterval as number | undefined);
-    }else{
-      setCurrentSlide(0)
-    }
+    setCurrentSlide((prev) => (prev > 0 ? prev - 1 : 0));
   };
 
   const handleSwipeRight = () => {
-    if (currentSlide < maxSlide) {
-      setCurrentSlide(currentSlide + 1);
-      clearInterval(autoSwipeInterval as number | undefined);
-    }else{
-      setCurrentSlide(0)
-    }
-  };
-  const handleAutoSwipe = () => {
-    if (currentSlide < maxSlide) {
-     setCurrentSlide(currentSlide+1)
-    }else{
-      setCurrentSlide(0)
-    }
-  };
-  const resetAutoSwipe = () => {
-    const interval = setInterval(handleAutoSwipe, 1000); 
-    setAutoSwipeInterval(interval);
+    setCurrentSlide((prev) => (prev < maxSlide ? prev + 1 : 0));
   };
   useEffect(() => { 
-    if (!loading && !error && data && containerRef.current) {
+    if (!loading && data && containerRef.current) {
 
       const container = containerRef.current;
       const containerWidth = container.clientWidth;
       const scrollWidth = container.scrollWidth;
       const maxSlides = Math.ceil(scrollWidth / containerWidth) - 2;
       setMaxSlide(maxSlides);
-    //  resetAutoSwipe();
-      
-      container.scrollLeft = currentSlide * containerWidth;
-      const slider = container;
-      slider.addEventListener("touchstart", handleTouchStart);
-      slider.addEventListener("touchmove", handleTouchMove);
-      slider.addEventListener("touchend", handleTouchEnd);
+
+      if (autoSwipeIntervalRef.current) {
+        clearInterval(autoSwipeIntervalRef.current);
+      }
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev < maxSlides ? prev + 1 : 0));
+      }, 3000);
+      autoSwipeIntervalRef.current = interval;
+
+      container.scrollLeft = currentSlide * container.clientWidth;
+      container.addEventListener('touchstart', handleTouchStart);
+      container.addEventListener('touchmove', handleTouchMove);
+      container.addEventListener('touchend', handleTouchEnd);
+
       return () => {
-        slider.removeEventListener("touchstart", handleTouchStart);
-        slider.removeEventListener("touchmove", handleTouchMove);
-        slider.removeEventListener("touchend", handleTouchEnd);   
-    //  clearInterval(autoSwipeInterval as number | undefined);
+        container.removeEventListener('touchstart', handleTouchStart);
+        container.removeEventListener('touchmove', handleTouchMove);
+        container.removeEventListener('touchend', handleTouchEnd);
+        if (autoSwipeIntervalRef.current) {
+          clearInterval(autoSwipeIntervalRef.current);
+        }
       };
     }
-  }, [currentSlide, loading, error, data]);
+  }, [currentSlide, loading, data]);
+
 
   if (loading) return <SlideCarSkeleton />;
   if (error) return <p className="mt-16">Error: {error.message}</p>;
