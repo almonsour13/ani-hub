@@ -138,7 +138,7 @@ query ($id: Int!) {
 const SEARCH_ANIME_QUERY = gql`
   query SearchAnime($searchValue: String!) {
     Page {
-      media(search: $searchValue, type: ANIME) {
+      media(search: $searchValue, type: MANGA) {
         id
         title {
           romaji
@@ -154,10 +154,19 @@ const SEARCH_ANIME_QUERY = gql`
           month
           day
         }
+        endDate {
+          year
+          month
+          day
+        }
         episodes
         chapters
         type
         status
+        format
+        averageScore
+        genres
+
       }
     }
   }

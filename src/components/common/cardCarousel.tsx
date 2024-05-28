@@ -63,11 +63,11 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
             <a
               href={`/${anime.type.toLowerCase()}/${anime.id}`}
               key={anime.idMal}
-              className="carousel-item group relative lg:w-40 md:w-40 sm:w-36 w-32 h-auto flex flex-col gap-2"
+              className="carousel-item group relative lg:w-40 md:w-36 sm:w-32 w-28 h-auto flex flex-col gap-2"
             >
               <div
                 ref={cardRef}
-                className="w-full lg:h-56 md:h-60 sm:h-56 h-48 rounded bg-accent flex items-center justify-center relative overflow-hidden"
+                className="w-full lg:h-56 md:h-52 sm:h-48 h-40 rounded bg-accent flex items-center justify-center relative overflow-hidden"
               >
                 <ImageChecker
                   imageUrl={anime.coverImage.large.replace("medium", "large")}
@@ -76,7 +76,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
                 <div className="absolute lg:block hidden transition-all ease-in-out duration-200 bottom-0 group-hover:bg-opacity- overflow-hidden w-full group-hover:h-full h-0 bg-gradient-to-t from-base-100 via-transparent to-transparent">
                   <div className="-w-full h-full flex items-end bg-gradient-to-t from-base-100 via-transparent to-transparent bg-opacity-60"> 
                     <div className="flex flex-col gap-1 p-2 text-xs">
-                      <div className="w-full flex gap-1 text-primary">
+                      <div className="w-full flex gap-1 text-primary uppercase">
                         <p>
                           {anime.format === "MANGA"
                             ? anime.countryOfOrigin === "JP"
@@ -88,7 +88,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
                         </p>
                         <p>{anime.startDate.year}</p>
                       </div>
-                      <div className="w-full flex gap-2">
+                      <div className="w-full flex gap-2 tracking-wide">
                         {anime.genres
                             .slice(0, 2)
                             .map((genre: any, index: number) => (

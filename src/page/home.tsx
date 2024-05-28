@@ -9,7 +9,7 @@ const Home: React.FC = () => {
     <div className="flex flex-col gap-7 relative">
       <Header/>
       <TopAnime/>
-      <TrendingAnime/>
+      {/* <TrendingAnime/> */}
       <TrendingManga/>
     </div>
   );
