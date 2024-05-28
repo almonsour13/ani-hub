@@ -68,7 +68,7 @@ const TopAnime: React.FC = () => {
       const scrollWidth = container.scrollWidth;
       const maxSlides = Math.ceil(scrollWidth / containerWidth) - 2;
       setMaxSlide(maxSlides);
-      resetAutoSwipe();
+    //  resetAutoSwipe();
       
       container.scrollLeft = currentSlide * containerWidth;
       const slider = container;
@@ -79,7 +79,7 @@ const TopAnime: React.FC = () => {
         slider.removeEventListener("touchstart", handleTouchStart);
         slider.removeEventListener("touchmove", handleTouchMove);
         slider.removeEventListener("touchend", handleTouchEnd);   
-      clearInterval(autoSwipeInterval as number | undefined);
+    //  clearInterval(autoSwipeInterval as number | undefined);
       };
     }
   }, [currentSlide, loading, error, data]);
