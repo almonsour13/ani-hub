@@ -17,7 +17,7 @@ const Header: React.FC = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
+  
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       window.location.href = `/search?keyword=${keyWord}`;
@@ -190,7 +190,7 @@ const OnKeySearchResult: React.FC<OnKeySearch> = ({ keyWord }) => {
             ))}
           </div>
           <a
-            href=""
+            href={`/search?keyword=${keyWord}`}
             className="btn btn-primary btn-sm flex content-center items-center p-3 rounded"
           >
             View All Results
@@ -234,6 +234,19 @@ const SearchModal = () => {
       closeModal();
     }
   };
+  
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+        closeModal();
+    }
+  };
+
+  useEffect(() => {
+      document.addEventListener("keydown", handleKeyDown);
+      return () => {
+          document.removeEventListener("keydown", handleKeyDown);
+      };
+  }, []);
 
   return (
     <dialog
