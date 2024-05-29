@@ -45,18 +45,18 @@ const CardCarousel: React.FC<CardCarouselProps> = ({ header_title, query }) => {
 
   return (
     <>
-      <div className="flex justify-between lg:px-0 px-3 mt-2 lg:text-lg text-md font-bold uppercase">
+      <div className="flex justify-between lg:px-0 px-5 mt-2 lg:text-lg text-md font-bold uppercase">
         <h1>
           {header_title}
         </h1>
         {/* ❯ */}
-        <a href="#">
+        <a href="#" className="text-primary">
           See All
         </a>
       </div>
       <div className="w-full relative">
         <div
-          className="carousel lg:overflow-hidden w-full h-auto gap-3 lg:scroll-px-0 scroll-px-3 lg:px-0 px-3"
+          className="carousel lg:overflow-hidden w-full h-auto gap-3 lg:scroll-px-0 scroll-px-5 lg:px-0 px-5"
           ref={containerRef}
         >
           {data.Page.anime.map((anime: any, index:number) => (

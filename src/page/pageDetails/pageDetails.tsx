@@ -30,7 +30,7 @@ const PageDetails: React.FC = () => {
           }}
         >
           <div className="relative w-full h-auto ">
-            <div className="flex flex-col w-full h-full lg:w-10/12 w-full mx-auto lg:px-0 p-3 relative">
+            <div className="flex flex-col w-full h-full lg:w-10/12 w-full mx-auto lg:px-0 p-5 relative">
                 <div className="lg:h-14 h-10 w-full relative">
                   <div className="absolute z-10 top-0 h-full w-full flex content-center items-center">
                     <a href="/" className="">
@@ -50,7 +50,7 @@ const PageDetails: React.FC = () => {
                       </div>
                       <div className="flex-1 h-full flex items-end">
                         <div className="w-full  h-auto flex flex-col gap-2">
-                          <h1 className="leading-none lg:text-4xl md:text-2xl text-md font-bold  drop-shadow-md">
+                          <h1 className="leading-none lg:text-4xl md:text-2xl text-xl font-bold  drop-shadow-md">
                             {data.Media.title.english || data.Media.title.native}
                           </h1>
                           <div className="flex flex-row gap-2 lg:text-sm text-xs">
@@ -114,7 +114,7 @@ const PageDetails: React.FC = () => {
       {
         //details
       }
-        <div className="lg:w-10/12 w-full mx-auto lg:px-0 p-3 flex flex-col gap-4">
+        <div className="lg:w-10/12 w-full mx-auto lg:px-0 p-5 flex flex-col gap-4">
           <div className="flex flex-col gap-3">
             {/* <h1 className="leading-none lg:text-4xl md:text-2xl text-2xl text-wrap font-bold  drop-shadow-md">
               {data.Media.title.english || data.Media.title.native}
@@ -155,7 +155,7 @@ const PageDetails: React.FC = () => {
       {
         //episodes
       }
-      <div className="lg:w-10/12 w-full mx-auto lg:px-0 p-3 flex flex-col gap-4">
+      <div className="lg:w-10/12 w-full mx-auto lg:px-0 p-5 flex flex-col gap-4">
           <p className="font-bold text-lg ">
             Episodes:
           </p>

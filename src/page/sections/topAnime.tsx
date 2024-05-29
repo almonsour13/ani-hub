@@ -82,7 +82,7 @@ const TopAnime: React.FC = () => {
         <Slide data={data.Page.anime} />
       </div>
       <div className="absolute z-30 lg:bottom-28 bottom-0 w-full">
-        <div className="lg:w-9/12 w-full lg:px-0 px-4 flex flex-col items-start gap-3 mx-auto relative">
+        <div className="lg:w-9/12 w-full lg:px-0 px-5 flex flex-col items-start gap-3 mx-auto relative">
           {/* {`${currentSlide+1}/${maxSlide+1}`} */}
           <div className="flex gap-2 lg:flex hidden">
             <button
@@ -151,7 +151,7 @@ const Slide: React.FC<Slide> = ({ data }) => {
           >
             <div className="absolute z-10 lg:bottom-0 bottom-0 w-full lg:h-full flex justify-center items-center">
               <div className="w-full">
-                <div className="lg:w-9/12 w-full lg:px-0 p-3 flex flex-col gap-2 mx-auto">
+                <div className="lg:w-9/12 w-full lg:px-0 p-5 flex flex-col gap-2 mx-auto">
                   <h1 className="leading-none text-primary font-bold lg:text-2xl md:text-2xl text-sm">
                     #{index + 1} Top
                   </h1>

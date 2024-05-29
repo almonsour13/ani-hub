@@ -40,28 +40,28 @@ module.exports = {
       "nord",
       "sunset",
     ],
-    // themes: [
-    //   {
-    //     mytheme: {
-    //       primary: "#f0c38e",
+    themes: [
+      {
+        mytheme: {
+          primary: "#f0c38e",
 
-    //       secondary: "#f1aa9b",
+          secondary: "#f1aa9b",
 
-    //       accent: "#0057ff",
+          accent: "#0057ff",
 
-    //       neutral: "#48426d",
+          neutral: "#48426d",
 
-    //       "base-100": "#312c51",
+          "base-100": "#312c51",
 
-    //       info: "#69bfff",
+          info: "#69bfff",
 
-    //       success: "#00903a",
+          success: "#00903a",
 
-    //       warning: "#ac4200",
+          warning: "#ac4200",
 
-    //       error: "#ff3563",
-    //     },
-    //   },
-    // ],
+          error: "#ff3563",
+        },
+      },
+    ],
   },
 };

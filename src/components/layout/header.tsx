@@ -52,7 +52,7 @@ const Header: React.FC = () => {
       ${!isInView ? "bg-opacity-50 backdrop-blur-sm backdrop-brightness-100 bg-base-100" : ""}
       `}
       >
-        <div className="navbar lg:w-9/12 w-full mx-auto lg:px-0 p-3">
+        <div className="navbar lg:w-9/12 w-full mx-auto lg:px-0 px-5 p-2">
           <div className="navbar-start">
             <a className="text-xl font-bold" href="/">
               <img
@@ -157,7 +157,7 @@ const OnKeySearchResult: React.FC<OnKeySearch> = ({ keyWord }) => {
             {data.Page.media.slice(0, 5).map((anime: any) => (
               <a
                 href={`/${anime.type.toLowerCase()}/${anime.id}`}
-                className="flex gap-3 group rounded hover:bg-base-200 transition-all ease-in-out duration-300"
+                className="h-auto flex gap-3 group rounded hover:bg-base-200 transition-all ease-in-out duration-300"
                 key={anime.id}
               >
                 <div className="flex-0 w-16 h-20 bg-primary rounded-s overflow-hidden">
@@ -167,8 +167,9 @@ const OnKeySearchResult: React.FC<OnKeySearch> = ({ keyWord }) => {
                     alt=""
                   />
                 </div>
-                <div className="flex-1 flex flex-col">
-                  <p className="text-wrap group-hover:text-primary lg:text-sm text-xs font-semibold">
+                <div className="flex-1 flex content-center items-center h-20 ">
+                <div className="flex flex-col">
+                  <p className="text-wrap group-hover:text-primary lg:text-base text-sm font-semibold">
                     {anime.title.english || anime.title.native}
                   </p>
                   <div className="flex gap-2 text-xs opacity-80">
@@ -182,6 +183,7 @@ const OnKeySearchResult: React.FC<OnKeySearch> = ({ keyWord }) => {
                         {genre}
                       </a>
                     ))}
+                    </div>
                   </div>
                 </div>
               </a>
@@ -235,13 +237,13 @@ const SearchModal = () => {
 
   return (
     <dialog
-      className={`modal backdrop-blur-sm p-3 lg:py-12 md:py-12 items-start`}
+      className={`modal backdrop-blur-sm p-4 px-5 lg:py-12 md:py-12 items-start`}
       id="search-modal"
       role="dialog"
       onClick={handleClickOutside}
     >
-      <div className="lg:w-6/12 md:w-10/12 w-full max-h-full h-auto overflow-auto flex gap-6 flex-col bg-base-100 p-5 rounded m-0">
-        <div className="flex gap-2 content-center items-start border-primary">
+      <div className="lg:w-6/12 md:w-10/12 w-full max-h-full h-auto overflow-auto flex gap-6 flex-col bg-base-100 p-3 rounded m-0">
+        <div className="flex gap-2 content-center items-start">
           <button onClick={handleSearch}>
             <svg
               className="fill-current h-6 w-6"
