@@ -44,7 +44,7 @@ const SearchPage = () => {
           <div className="flex flex-col gap-3">
           <div className="flex justify-between text-xl font-semibold gap-2">
             <div className="flex gap-2">
-              <p>{keyWord?"Search Results for: "+keyWord:"Filter Result:"}</p>
+              <p>{keyWord?"Search Results for: ":"Filter Result:"}</p>
               <p className="text-primary">{keyWord}</p>
             </div>
             <button className="lg:hidden" onClick={showFilterBtn}>
@@ -156,6 +156,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ filter }) => {
                 cards.forEach(card => card.style.height = `${(maxHeight*2)-(maxHeight/2)}px`);
             }
         }
+        handleResize()
         window.addEventListener('resize', handleResize);
 
         return () => {
