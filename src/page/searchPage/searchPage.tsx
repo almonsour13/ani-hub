@@ -77,10 +77,10 @@ const SearchResult = () => {
   if (error) return <div className="w-full p-3 rounded bg-base-100 bg-opacity-90">Error: {error.message}</div>;
 
   return (
-    <div className="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-4 grid-cols-3 xl:gap-5 lg:gap-5 md:gap-4 gap-3">
+    <div className="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-4 grid-cols-2 xl:gap-5 lg:gap-5 md:gap-4 gap-4">
       {keyWord && data.Page.media.length !== 0 ? (
         data.Page.media.map((anime: any) => (
-            <Card anime={anime} cardRef={null} width="w-full" height="xl:h-60 lg:h-56 md:h-56 sm:h-52 h-40 min-h-36"/>
+            <Card anime={anime} cardRef={null} width="w-full" height="xl:h-60 lg:h-56 md:h-56 sm:h-52 h-52"/>
         ))
       ) : (
         <p>No search results found.</p>
