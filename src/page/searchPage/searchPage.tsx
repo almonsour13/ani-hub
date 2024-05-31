@@ -90,7 +90,7 @@ const SearchResult = () => {
     <div className="grid grid-flow-row xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 xl:gap-5 lg:gap-5 md:gap-4 gap-4">
       {keyWord && data.Page.media.length !== 0 ? (
         data.Page.media.map((anime: any) => (
-            <Card anime={anime} cardRef={null} width="w-full" height=""/>
+            <Card anime={anime} cardRef={null} width="w-full" height=""/> 
         ))
       ) : (
         <p>No search results found.</p>
