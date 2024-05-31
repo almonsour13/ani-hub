@@ -14,6 +14,7 @@ const Card: React.FC<CardProps> = ({ anime, cardRef,width,height }) => {
       className={`carousel-item group relative flex flex-col gap-2 ${width}`}
     >
       <div
+        id="card-item"
         ref={cardRef}
         className={`w-full ${height} rounded bg-accent flex items-center justify-center relative overflow-hidden`}
       >
