@@ -136,9 +136,23 @@ query ($id: Int!) {
 }
 `;
 const SEARCH_ANIME_QUERY = gql`
-  query SearchAnime($searchValue: String!) {
+  query SearchAnime(
+    $searchValue: String
+    $genres:[String]
+    $sort: [MediaSort]
+    $status: MediaStatus
+    $type: MediaType
+    $season: MediaSeason
+  ) {
     Page {
-      media(search: $searchValue, type: MANGA) {
+      media(
+        search: $searchValue,
+        type: $type,
+        genre_in:$genres
+        sort: $sort,
+        status: $status,    
+        season: $season
+      ) {
         id
         title {
           romaji
@@ -166,11 +180,11 @@ const SEARCH_ANIME_QUERY = gql`
         format
         averageScore
         genres
-
       }
     }
   }
 `;
+
 const UPCOMING_NEXT_SEASON_ANIME_QUERY = gql`
        {
     Page {

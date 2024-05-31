@@ -168,7 +168,7 @@ const Slide: React.FC<Slide> = ({ data }) => {
                       .slice(0, 3)
                       .map((genre: any, index: number) => (
                         <a
-                          href={`/search/genre`}
+                          href={`/search?Genre=${genre}`}
                           className="btn btn-xs btn-primary btn-outline rounded-2xl"
                         >
                           {genre}

@@ -139,7 +139,6 @@ const OnKeySearchResult: React.FC<OnKeySearch> = ({ keyWord }) => {
     skip: !keyWord,
   });
   useEffect(() => {
-    console.log(data);
   }, [data]);
   if (loading) return <div className="w-full h-auto">loading</div>;
   if (error)
@@ -164,7 +163,6 @@ const OnKeySearchResult: React.FC<OnKeySearch> = ({ keyWord }) => {
                   <img
                     className="h-full w-full rounded object-cover scale-100 group-hover:scale-110 transition-all ease-in-out duration-300"
                     src={anime.coverImage.large}
-                    alt=""
                   />
                 </div>
                 <div className="flex-1 flex content-center items-center h-16">
