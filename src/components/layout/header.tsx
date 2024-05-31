@@ -160,25 +160,25 @@ const OnKeySearchResult: React.FC<OnKeySearch> = ({ keyWord }) => {
                 className="h-auto flex gap-3 group rounded hover:bg-base-200 transition-all ease-in-out duration-300"
                 key={anime.id}
               >
-                <div className="flex-0 w-16 h-20 bg-primary rounded-s overflow-hidden">
+                <div className="flex-0 w-12 h-16 bg-primary rounded overflow-hidden">
                   <img
                     className="h-full w-full rounded object-cover scale-100 group-hover:scale-110 transition-all ease-in-out duration-300"
                     src={anime.coverImage.large}
                     alt=""
                   />
                 </div>
-                <div className="flex-1 flex content-center items-center h-20 ">
+                <div className="flex-1 flex content-center items-center h-16">
                 <div className="flex flex-col">
-                  <p className="text-wrap group-hover:text-primary lg:text-base text-sm font-semibold">
+                  <p className="text-wrap group-hover:text-primary lg:text-base text-sm font-semibold w-full truncate">
                     {anime.title.english || anime.title.native}
                   </p>
                   <div className="flex gap-2 text-xs opacity-80">
+                    <p>{anime.status}</p>
                     <p>{anime.format}</p>
                     <p>{anime.startDate.year}</p>
-                    <p>{anime.status}</p>
                   </div>
-                  <div className="flex gap-2 text-xs opacity-80">
-                    {anime.genres.slice(0, 5).map((genre: any) => (
+                  <div className="flex gap-2 text-xs opacity-80 hidden">
+                    {anime.genres.slice(0, 3).map((genre: any) => (
                       <a href="" key={genre}>
                         {genre}
                       </a>
