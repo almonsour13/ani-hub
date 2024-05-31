@@ -77,7 +77,6 @@ const SearchResult = () => {
         const cards = Array.from(document.querySelectorAll<HTMLElement>("#card-item"));
         const heights = cards.map(card => card.offsetWidth);
         const maxHeight = Math.max(...heights);
-        console.log(heights)
         cards.forEach(card => card.style.height = `${(maxHeight*2)-(maxHeight/2)}px`);
     }
 }, [data]);
@@ -87,7 +86,7 @@ const SearchResult = () => {
   if (error) return <div className="w-full p-3 rounded bg-base-100 bg-opacity-90">Error: {error.message}</div>;
 
   return (
-    <div className="grid grid-flow-row xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 xl:gap-5 lg:gap-5 md:gap-4 gap-4">
+    <div className="grid grid-flow-row xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-4 grid-cols-3 xl:gap-5 lg:gap-5 md:gap-4 gap-4">
       {keyWord && data.Page.media.length !== 0 ? (
         data.Page.media.map((anime: any) => (
             <Card anime={anime} cardRef={null} width="w-full" height=""/>
