@@ -1,61 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
+import { useUrlState } from "../../hooks/UrlContext";
 
 const GetQueryParams = () => {
-  return new URLSearchParams(useLocation().search);
+  const { search } = useLocation();
+  return new URLSearchParams(search);
 };
+
 interface DropDownProps {
   type: string;
   data: any;
-  setFilterVariables: React.Dispatch<React.SetStateAction<any[]>>;
-  filterVariables: any[];
 }
 
-const DropDown: React.FC<DropDownProps> = ({
-  type,
-  data,
-  setFilterVariables,
-  filterVariables,
-}) => {
+const DropDown: React.FC<DropDownProps> = ({ type, data }) => {
   const query = GetQueryParams();
-  const paramsData:string = query.get(type) || "";
+  const paramsData: string = query.get(type) || "";
   const [selected, setSelected] = useState(paramsData);
   const [isOpen, setIsOpen] = useState(false);
+  const { setUrlDetection } = useUrlState();
 
-  useEffect(() =>{
-    if (setFilterVariables) {
-      setFilterVariables((prevFilterVariables) => {
-        const updatedFilterVariables = prevFilterVariables.filter(
-          (filter) => filter.type !== type,
-        );
-        return [...updatedFilterVariables, { type, value: paramsData }];
-      });
+  useEffect(() => {
+    if (selected) {
+      const url = new URL(window.location.href);
+      url.searchParams.set(type, selected);
+      window.history.pushState({}, "", url.toString());
+      setUrlDetection(url.toString())
     }
-  },[])
+
+    const handleUrlChange = () => {
+      setSelected(paramsData);
+      console.log(paramsData);
+    };
+    window.addEventListener("popstate", handleUrlChange);
+
+    return () => {
+      window.removeEventListener("popstate", handleUrlChange);
+    };
+  }, [type, selected]);
 
   const handleSelect = (val: string) => {
     setSelected(val);
-    if (setFilterVariables) {
-      const url = new URL(window.location.href);
-      setFilterVariables(prevFilterVariables => {
-        url.searchParams.set(type, val);
-        return [...prevFilterVariables.filter(filter => filter.type !== type), { type, value: val }];
-      });
-      window.history.pushState({}, "", url.toString());
-    }
     setIsOpen(false);
   };
-  
+
   const removeSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setSelected("");
     const url = new URL(window.location.href);
     url.searchParams.delete(type);
-    if (setFilterVariables) {
-      setFilterVariables(prev => prev.filter(filter => filter.type !== type));
-    }
     window.history.pushState({}, "", url.toString());
-  }; 
+    setUrlDetection(url.toString())
+  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -87,7 +82,7 @@ const DropDown: React.FC<DropDownProps> = ({
             </svg>
           </button>
         ) : (
-          ""
+          <p></p>
         )}
       </div>
       {isOpen && (
@@ -98,9 +93,7 @@ const DropDown: React.FC<DropDownProps> = ({
           {data.map((item: any) => (
             <li
               onClick={() => handleSelect(item.name)}
-              className={`w-full truncate hover:bg-base-200 hover:text-primary p-3 cursor-pointer rounded ${
-                selected === item.name ? "text-primary" : " text-white"
-              }`}
+              className={`w-full truncate hover:bg-base-200 hover:text-primary p-3 cursor-pointer rounded ${selected === item.name ? "text-primary" : " text-white"}`}
               key={item.id}
               value={item.id}
             >
@@ -112,41 +105,43 @@ const DropDown: React.FC<DropDownProps> = ({
     </div>
   );
 };
+
 interface GenreProps {
   type: string;
   data: any[];
-  setFilterVariables: React.Dispatch<React.SetStateAction<any[]>>;
-  filterVariables: any[];
 }
-const Genre: React.FC<GenreProps> = ({ type, data, setFilterVariables, filterVariables, }) => {
+
+const Genre: React.FC<GenreProps> = ({ type, data }) => {
   const query = GetQueryParams();
-  const paramsData:string[] = query.getAll(type);
-  const [selected, setSelected] = useState(paramsData || []);
+  const paramsData: string[] = query.getAll(type) || [];
+  const [selected, setSelected] = useState<string[]>(paramsData);
+  const { setUrlDetection } = useUrlState();
+
   useEffect(() => {
-    setFilterVariables((prev) => [
-      ...prev.filter((item) => item.type !== type),
-      ...selected.map((value) => ({ type, value })),
-    ]);
-    
     const url = new URL(window.location.href);
     url.searchParams.delete(type);
-    selected.forEach((item) => {
-      return url.searchParams.append(type, item)
-    })
+    selected.map((genre) => url.searchParams.append(type, genre));
     window.history.pushState({}, "", url.toString());
-    console.log(selected)
-  }, [selected, type, setFilterVariables]);
+    setUrlDetection(url.toString())
+
+    const handleUrlChange = () => {
+      setSelected(paramsData);
+    };
+    window.addEventListener("popstate", handleUrlChange);
+
+    return () => {
+      window.removeEventListener("popstate", handleUrlChange);
+    };
+  }, [type, selected]);
 
   const handleSelect = (val: string) => {
-    setSelected((prevSelected) => {
-      if (prevSelected.includes(val)) {
-        return prevSelected.filter((item) => item !== val);
-      } else {
-        return [...prevSelected, val];
-      }
-    });
-  
+    if (selected.includes(val)) {
+      setSelected(selected.filter((item) => item !== val));
+    } else {
+      setSelected([...selected, val]);
+    }
   };
+
   const renderSelected = () => {
     if (selected.length > 2) {
       return `${selected.slice(0, 1).join(", ")} +${selected.length - 1}`;
@@ -160,13 +155,10 @@ const Genre: React.FC<GenreProps> = ({ type, data, setFilterVariables, filterVar
   const removeSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setSelected([]);
-    setFilterVariables((prevFilters) =>
-      prevFilters.filter((filter) => !(filter.type === type)),
-    );
-    
     const url = new URL(window.location.href);
     url.searchParams.delete(type);
     window.history.pushState({}, "", url.toString());
+    setUrlDetection(url.toString())
   };
 
   return (
@@ -219,4 +211,5 @@ const Genre: React.FC<GenreProps> = ({ type, data, setFilterVariables, filterVar
     </div>
   );
 };
-export {Genre,DropDown };
+
+export { Genre, DropDown };

@@ -4,7 +4,8 @@ import { SERIES_PAGE_QUERY } from "../../graphQl/queries";
 import { useParams } from 'react-router-dom';
 import EpisodesList from "./episodeList";
 import ViewCoverImage from "./viewCoverImage";
-//156822
+import ImageChecker from "../../hooks/imageChecker";
+
 const PageDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { loading, error, data } = useQuery(SERIES_PAGE_QUERY, {
@@ -52,10 +53,9 @@ const PageDetails: React.FC = () => {
                     <div className="absolute top-0 z-10 w-full h-full flex items-end">
                       <div className="flex gap-2 w-full lg:h-56 md:h-52 sm:h-48 h-40">
                         <div className="flex-0 bg-primary lg:w-40 md:w-36 sm:w-32 w-28 h-full rounded drop-shadow-md cursor-pointer" onClick={viewCoverImageModal}>
-                          <img
-                            className="h-full w-full rounded object-cover"
-                            src={data.Media.coverImage.large.replace("medium", "large")}
-                            alt={data.Media.title.english || data.Media.title.native}
+                          <ImageChecker
+                            imageUrl={data.Media.coverImage.large.replace("medium", "large")}
+                            title={data.Media.title.english || data.Media.title.native}
                           />
                         </div>
                         <div className="flex-1 h-full flex items-end">
@@ -136,7 +136,7 @@ const PageDetails: React.FC = () => {
               <div className="flex flex-wrap gap-2">
                 {data.Media.genres.map((genre: any) => (
                   <a
-                    href="#"
+                    href={`/search?Genre=${genre}`}
                     className="btn btn-xs btn-outline btn-primary rounded-2xl"
                   >
                     {genre}

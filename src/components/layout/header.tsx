@@ -20,7 +20,7 @@ const Header: React.FC = () => {
   
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      window.location.href = `/search?keyword=${keyWord}`;
+      window.location.href = `/search?keyWord=${keyWord}`;
     } else {
       setKeyWord((event.target as HTMLInputElement).value);
     }
@@ -28,7 +28,7 @@ const Header: React.FC = () => {
 
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
-    window.location.href = `/search?keyword=${keyWord}`;
+    window.location.href = `/search?keyWord=${keyWord}`;
   };
   const removeKeyWord = () => {
     setKeyWord("");
@@ -188,7 +188,7 @@ const OnKeySearchResult: React.FC<OnKeySearch> = ({ keyWord }) => {
             ))}
           </div>
           <a
-            href={`/search?keyword=${keyWord}`}
+            href={`/search?keyWord=${keyWord}`}
             className="btn btn-primary btn-sm flex content-center items-center p-3 rounded"
           >
             View All Results
@@ -204,7 +204,7 @@ const SearchModal = () => {
   const [keyWord, setKeyWord] = useState("");
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      window.location.href = `/search?keyword=${keyWord}`;
+      window.location.href = `/search?keyWord=${keyWord}`;
     } else {
       setKeyWord((event.target as HTMLInputElement).value);
     }
@@ -212,7 +212,7 @@ const SearchModal = () => {
 
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
-    window.location.href = `/search?keyword=${keyWord}`;
+    window.location.href = `/search?keyWord=${keyWord}`;
   };
   const closeModal = () => {
     const modal = document.getElementById(
