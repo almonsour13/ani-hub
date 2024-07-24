@@ -1,7 +1,8 @@
 import { useState } from "react";
-const ImageChecker: React.FC<{ imageUrl: string; title: string }> = ({
+const ImageChecker: React.FC<{ imageUrl: string; title: string, size: string}> = ({
     imageUrl,
     title,
+    size
   }) => {
     const [error, setError] = useState(false);
   
@@ -23,7 +24,7 @@ const ImageChecker: React.FC<{ imageUrl: string; title: string }> = ({
           </svg>
         ) : (
           <img
-            className="h-full w-full rounded object-cover"
+            className={`${size} rounded object-cover`}
             src={imageUrl.replace("large", "medium")}
             alt={title}
             onError={onError}

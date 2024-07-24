@@ -84,7 +84,7 @@ const TopAnime: React.FC = () => {
       <div className="absolute z-30 lg:bottom-28 bottom-0 w-full">
         <div className="lg:w-9/12 w-full lg:px-0 px-5 flex flex-col items-start gap-3 mx-auto relative">
           {/* {`${currentSlide+1}/${maxSlide+1}`} */}
-          <div className="flex gap-2 lg:flex hidden">
+          <div className="flex gap-2 lg:flex">
             <button
               className={`btn btn-primary btn-sm rounded ${currentSlide !== 0 ? "" : "btn-disabled"}`}
               onClick={handleSwipeLeft}
@@ -158,12 +158,12 @@ const Slide: React.FC<Slide> = ({ data }) => {
                   <h1 className="leading-none lg:text-5xl text-2xl font-bold text-wrap drop-shadow-md">
                     {anime.title.english || "N/A"}
                   </h1>
-                  <div className="flex flex-wrap gap-2 leading-none text-xs lg:flex hidden">
+                  <div className="flex flex-wrap gap-2 leading-none text-xs lg:flex">
                     <p>{anime.startDate.year}</p>
                     <p>{anime.averageScore}</p>
                     <p>{anime.status}</p>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="lg:flex md:flex flex-wrap gap-2 hidden">
                     {anime.genres
                       .slice(0, 3)
                       .map((genre: any, index: number) => (
@@ -229,7 +229,7 @@ const Slide: React.FC<Slide> = ({ data }) => {
             {/*     <div className="absolute z-1 h-full inset-0 bg-gradient-to-r from-base-100 via-transparent to-transparent"></div>*/}
             <div className="absolute z-1 h-full w-full bg-gradient-to-t from-base-100 via-transparent to-transparent"></div>
             <div className="absolute z-1 h-full w-full bg-gradient-to-r from-base-100 via-transparent to-transparent"></div>
-            <div className="absolute z-1 h-full w-full bg-base-100 top-0 left-0 opacity-70"></div>
+            <div className="absolute z-1 h-full w-full bg-base-200 top-0 left-0 opacity-70"></div>
           </div>
         </div>
       ))}

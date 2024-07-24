@@ -7,7 +7,7 @@ import SearchPage from './page/searchPage/searchPage';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-base-200 ">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>}/>

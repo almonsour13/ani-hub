@@ -21,8 +21,9 @@ const Card: React.FC<CardProps> = ({ anime, cardRef,width,height }) => {
         <ImageChecker
           imageUrl={anime.coverImage.large.replace("medium", "large")}
           title={anime.title.english || anime.title.native}
+          size="h-full w-full"
         />
-        <div className="absolute lg:block hidden transition-all ease-in-out duration-200 bottom-0 group-hover:bg-opacity- overflow-hidden w-full group-hover:h-full h-0 bg-gradient-to-t from-base-100 via-transparent to-transparent">
+        <div className="absolute hidden transition-all ease-in-out duration-200 bottom-0 group-hover:bg-opacity- overflow-hidden w-full group-hover:h-full h-0 bg-gradient-to-t from-base-100 via-transparent to-transparent">
           <div className="-w-full h-full flex items-end bg-gradient-to-t from-base-100 via-transparent to-transparent bg-opacity-60">
             <div className="flex flex-col gap-1 p-2 text-xs">
               <div className="w-full flex gap-1 text-primary uppercase">

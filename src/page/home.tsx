@@ -3,6 +3,7 @@ import TopAnime from '../page/sections/topAnime'
 import TrendingAnime from './sections/trendingAnime'
 import TrendingManga from './sections/trendingManga'
 import Header from '../components/layout/header';
+import Footer from '../components/layout/footer';
 
 const Home: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const Home: React.FC = () => {
       <TopAnime/>
        <TrendingAnime/>
       <TrendingManga/>
+      <Footer/>
     </div>
   );
 };

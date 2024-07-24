@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import ImageChecker from "../../hooks/imageChecker";
 interface CoverImage {
     imageUrl: string;
 }
@@ -46,7 +46,11 @@ const ViewCoverImage: React.FC<CoverImage> = ({ imageUrl }) => {
                 </button>
                 <div className="flex bg-primary h-96 w-72 rounded" onClick={(e) => e.stopPropagation()}>
                     {imageUrl ? (
-                        <img src={imageUrl} className="h-full w-full object-cover rounded" />
+                        <ImageChecker
+                            imageUrl={imageUrl}
+                            title={""}
+                            size="imageUrl"
+                          />
                     ) : (
                         ""
                     )}

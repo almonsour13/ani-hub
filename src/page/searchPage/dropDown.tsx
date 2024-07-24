@@ -58,7 +58,7 @@ const DropDown: React.FC<DropDownProps> = ({ type, data }) => {
 
   return (
     <div
-      className="dropdown w-auto bg-base-200 rounded cursor-pointer"
+      className="dropdown w-auto bg-base-100 rounded cursor-pointer"
       tabIndex={0}
     >
       <div
