@@ -7,7 +7,7 @@ import Footer from '../components/layout/footer';
 
 const Home: React.FC = () => {
   return (
-    <div className="flex flex-col gap-7 relative">
+    <div className="flex flex-col gap-8 relative">
       <Header/>
       <TopAnime/>
        <TrendingAnime/>
